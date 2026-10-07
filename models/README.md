@@ -1,7 +1,7 @@
 # 3D model files
 
-Drop realistic anatomy models here as **`.glb`** (or `.gltf`) files, then point a
-body system at the file in [`../js/data.js`](../js/data.js). For example:
+Drop realistic anatomy models here as **`.glb`**, **`.gltf`**, or **`.stl`** files,
+then point a body system at the file in [`../js/data.js`](../js/data.js). For example:
 
 ```js
 {
@@ -9,13 +9,21 @@ body system at the file in [`../js/data.js`](../js/data.js). For example:
   name: "Cardiovascular System",
   model: "cardiovascular",   // procedural fallback (used if the file is missing)
   file: "models/heart.glb",  // ← realistic model shown when present
+  color: 0xb5323a,           // optional: material color for .stl files (no color of their own)
+  rotation: [-1.5708, 0, 0], // optional: [x, y, z] radians to orient the model upright
   ...
 }
 ```
 
 If `file` is `null` or the file can't be loaded, the app automatically falls back
 to the built-in procedural model, so nothing ever breaks. Models are
-auto-centered and scaled to fit the viewer, so they don't need special prep.
+auto-centered and scaled to fit the viewer.
+
+> **Tip on model quality:** `.glb`/`.gltf` models keep their own colors and
+> materials and usually look best. `.stl` files are geometry-only (one solid
+> color via the `color` field). Clinical/segmented meshes (e.g. many NIH 3D
+> entries) are anatomically real but can look rough or fragmented — hand-picked
+> illustrative models tend to read more clearly for studying.
 
 ## Where to get free, properly-licensed models
 

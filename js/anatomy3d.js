@@ -6,6 +6,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { STLLoader } from "three/addons/loaders/STLLoader.js";
 import { bodySystems } from "./data.js";
 
 export function renderAnatomy(root) {
@@ -79,6 +80,7 @@ class Viewer {
     this.modelGroup = null;
     this.animators = [];
     this.loader = new GLTFLoader();
+    this.stlLoader = new STLLoader();
     this.loadToken = 0;
     this.loadingEl = container.querySelector("#viewerLoading");
 
@@ -120,35 +122,52 @@ class Viewer {
     this.scene.add(rim);
   }
 
-  // Show a body system. If it declares a `file` (a .glb/.gltf model) we load
-  // that for a realistic look; otherwise we build the procedural fallback.
+  // Show a body system. If it declares a `file` (a .glb/.gltf/.stl model) we
+  // load that for a realistic look; otherwise we build the procedural fallback.
   // A load token guards against the user switching systems mid-download.
   showSystem(system) {
     this._clearModel();
     this.animators = [];
     const token = ++this.loadToken;
 
-    if (system.file) {
-      this._setLoading(true);
-      this.loader.load(
+    if (!system.file) {
+      this._buildProcedural(system.model);
+      return;
+    }
+
+    const stale = () => token !== this.loadToken;
+    const onReady = (object) => {
+      if (stale()) return;
+      this._setLoading(false);
+      if (system.rotation) object.rotation.set(...system.rotation);
+      frameObject(object);
+      this.modelGroup = object;
+      this.scene.add(object);
+    };
+    const onError = () => {
+      // Missing or unreadable file: quietly fall back to the built-in model.
+      if (stale()) return;
+      this._setLoading(false);
+      this._buildProcedural(system.model);
+    };
+
+    this._setLoading(true);
+    const ext = system.file.split(".").pop().toLowerCase();
+    if (ext === "glb" || ext === "gltf") {
+      this.loader.load(system.file, (gltf) => onReady(gltf.scene), undefined, onError);
+    } else if (ext === "stl") {
+      this.stlLoader.load(
         system.file,
-        (gltf) => {
-          if (token !== this.loadToken) return;
-          this._setLoading(false);
-          frameObject(gltf.scene);
-          this.modelGroup = gltf.scene;
-          this.scene.add(this.modelGroup);
+        (geometry) => {
+          geometry.computeVertexNormals();
+          const material = mat(system.color || 0xcf6b6b, { roughness: 0.5, side: THREE.DoubleSide });
+          onReady(new THREE.Mesh(geometry, material));
         },
         undefined,
-        () => {
-          // Missing or unreadable file: quietly fall back to the built-in model.
-          if (token !== this.loadToken) return;
-          this._setLoading(false);
-          this._buildProcedural(system.model);
-        }
+        onError
       );
     } else {
-      this._buildProcedural(system.model);
+      onError();
     }
   }
 
