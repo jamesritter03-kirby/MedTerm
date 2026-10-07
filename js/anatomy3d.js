@@ -10,6 +10,32 @@ import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { STLLoader } from "three/addons/loaders/STLLoader.js";
 import { bodySystems } from "./data.js";
 
+// Build the system list grouped by each entry's `group` label, in first-seen order.
+function groupedSystemListHTML(activeId) {
+  const groups = [];
+  for (const s of bodySystems) {
+    const key = s.group || "Other";
+    let g = groups.find((x) => x.key === key);
+    if (!g) groups.push((g = { key, items: [] }));
+    g.items.push(s);
+  }
+  return groups
+    .map(
+      (g) => `
+      <div class="system-group-label">${g.key}</div>
+      ${g.items
+        .map(
+          (s) => `
+        <button class="system-btn ${s.id === activeId ? "active" : ""}" data-id="${s.id}">
+          <strong>${s.name}</strong>
+          <small>${s.summary}</small>
+        </button>`
+        )
+        .join("")}`
+    )
+    .join("");
+}
+
 export function renderAnatomy(root) {
   let activeId = bodySystems[0].id;
 
@@ -20,15 +46,7 @@ export function renderAnatomy(root) {
     </p>
     <div class="anatomy-layout">
       <div class="system-list" id="systemList">
-        ${bodySystems
-          .map(
-            (s) => `
-          <button class="system-btn ${s.id === activeId ? "active" : ""}" data-id="${s.id}">
-            <strong>${s.name}</strong>
-            <small>${s.summary}</small>
-          </button>`
-          )
-          .join("")}
+        ${groupedSystemListHTML(activeId)}
       </div>
       <div class="viewer-panel">
         <div class="viewer-canvas-wrap" id="canvasWrap">
@@ -234,6 +252,45 @@ const mat = (color, opts = {}) =>
 // per-frame callbacks into it. Each returns a THREE.Group.
 // -----------------------------------------------------------------------------
 const MODELS = {
+  // ---- Vertebrae: a short stack of vertebra rings (fallback) --------------
+  vertebrae(animators) {
+    const group = new THREE.Group();
+    const bone = mat(0xf1ede0, { roughness: 0.75 });
+    for (let i = 0; i < 4; i++) {
+      const body = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.7, 0.5, 24), bone);
+      body.position.y = 1.5 - i;
+      group.add(body);
+      const arch = new THREE.Mesh(new THREE.TorusGeometry(0.4, 0.14, 12, 24), bone);
+      arch.position.set(0, 1.5 - i, -0.7);
+      arch.rotation.x = Math.PI / 2;
+      group.add(arch);
+      [-0.55, 0.55].forEach((x) => {
+        const process = new THREE.Mesh(new THREE.ConeGeometry(0.14, 0.6, 8), bone);
+        process.position.set(x, 1.5 - i, -0.7);
+        process.rotation.z = x > 0 ? -Math.PI / 2 : Math.PI / 2;
+        group.add(process);
+      });
+    }
+    return group;
+  },
+
+  // ---- Generic long bones (fallback for limbs / hand) ---------------------
+  bones(animators) {
+    const group = new THREE.Group();
+    const bone = mat(0xf1ede0, { roughness: 0.75 });
+    for (let i = 0; i < 3; i++) {
+      const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 2.6, 16), bone);
+      shaft.position.x = (i - 1) * 0.5;
+      group.add(shaft);
+      [1.4, -1.4].forEach((y) => {
+        const epiphysis = new THREE.Mesh(new THREE.SphereGeometry(0.26, 16, 16), bone);
+        epiphysis.position.set((i - 1) * 0.5, y, 0);
+        group.add(epiphysis);
+      });
+    }
+    return group;
+  },
+
   // ---- Skull: cranium + jaw (procedural fallback) -------------------------
   skull(animators) {
     const group = new THREE.Group();

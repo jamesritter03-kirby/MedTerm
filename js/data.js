@@ -368,6 +368,7 @@ export const bodySystems = [
     id: "skeletal",
     name: "Skeletal System",
     model: "skeletal",
+    group: "Body systems",
     // Realistic model: "The Open 3D Man" skeleton, © anatomists of Leiden UMC
     // et al., licensed CC BY-SA 4.0 (https://anatomytool.org/open3dmodel).
     file: "models/skeleton.glb",
@@ -383,6 +384,7 @@ export const bodySystems = [
     id: "skull",
     name: "Skull (Cranium)",
     model: "skull",
+    group: "Bones & regions",
     // Realistic model: "Coloured skull" from The Open 3D Man, © Leiden UMC et
     // al., licensed CC BY-SA 4.0 (https://anatomytool.org/open3dmodel).
     file: "models/skull.glb",
@@ -398,6 +400,7 @@ export const bodySystems = [
     id: "muscular",
     name: "Muscular System",
     model: "muscular",
+    group: "Body systems",
     file: null,
     summary: "Enables movement, maintains posture, and generates body heat.",
     terms: [
@@ -411,6 +414,7 @@ export const bodySystems = [
     id: "cardiovascular",
     name: "Cardiovascular System",
     model: "cardiovascular",
+    group: "Body systems",
     file: null,
     summary: "Pumps and circulates blood, delivering oxygen and nutrients throughout the body.",
     terms: [
@@ -424,6 +428,7 @@ export const bodySystems = [
     id: "respiratory",
     name: "Respiratory System",
     model: "respiratory",
+    group: "Body systems",
     file: null,
     summary: "Exchanges oxygen and carbon dioxide between the blood and the environment.",
     terms: [
@@ -437,6 +442,7 @@ export const bodySystems = [
     id: "nervous",
     name: "Nervous System",
     model: "nervous",
+    group: "Body systems",
     file: null,
     summary: "Controls and coordinates body functions through electrical and chemical signals.",
     terms: [
@@ -450,6 +456,7 @@ export const bodySystems = [
     id: "digestive",
     name: "Digestive System",
     model: "digestive",
+    group: "Body systems",
     file: null,
     summary: "Breaks down food, absorbs nutrients, and eliminates waste.",
     terms: [
@@ -457,6 +464,66 @@ export const bodySystems = [
       { term: "enter/o", meaning: "intestine" },
       { term: "hepat/o", meaning: "liver" },
       { term: "-itis", meaning: "inflammation" },
+    ],
+  },
+  {
+    id: "vertebrae",
+    name: "Typical Vertebrae",
+    model: "vertebrae",
+    group: "Bones & regions",
+    // "Typical vertebrae" from The Open 3D Man, CC BY-SA 4.0.
+    file: "models/vertebrae.glb",
+    summary: "Representative cervical, thoracic, and lumbar vertebrae that stack to form the spinal column.",
+    terms: [
+      { term: "spondyl/o", meaning: "vertebra" },
+      { term: "vertebr/o", meaning: "vertebra" },
+      { term: "myel/o", meaning: "spinal cord" },
+      { term: "-listhesis", meaning: "slipping" },
+    ],
+  },
+  {
+    id: "hand",
+    name: "Hand & Wrist",
+    model: "bones",
+    group: "Bones & regions",
+    // "Hand" from The Open 3D Man, CC BY-SA 4.0.
+    file: "models/hand.glb",
+    summary: "Carpal, metacarpal, and phalangeal bones that form the wrist and hand.",
+    terms: [
+      { term: "carp/o", meaning: "wrist" },
+      { term: "metacarp/o", meaning: "hand bones" },
+      { term: "phalang/o", meaning: "finger/toe bones" },
+      { term: "dactyl/o", meaning: "fingers or toes" },
+    ],
+  },
+  {
+    id: "upperlimb",
+    name: "Upper Limb",
+    model: "bones",
+    group: "Bones & regions",
+    // "Upper limb" from The Open 3D Man, CC BY-SA 4.0.
+    file: "models/upper-limb.glb",
+    summary: "Bones, joints, muscles, and nerves of the shoulder, arm, forearm, and hand.",
+    terms: [
+      { term: "brachi/o", meaning: "arm" },
+      { term: "cubit/o", meaning: "elbow/forearm" },
+      { term: "carp/o", meaning: "wrist" },
+      { term: "-um", meaning: "structure" },
+    ],
+  },
+  {
+    id: "lowerlimb",
+    name: "Lower Limb",
+    model: "bones",
+    group: "Bones & regions",
+    // "Lower limb" from The Open 3D Man, CC BY-SA 4.0.
+    file: "models/lower-limb.glb",
+    summary: "Bones, joints, and muscles of the hip, thigh, leg, and foot.",
+    terms: [
+      { term: "femor/o", meaning: "femur (thigh)" },
+      { term: "patell/o", meaning: "kneecap" },
+      { term: "pod/o", meaning: "foot" },
+      { term: "tars/o", meaning: "ankle" },
     ],
   },
 ];

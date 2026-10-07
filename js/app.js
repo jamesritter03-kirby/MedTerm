@@ -5,6 +5,7 @@ import { renderWordParts } from "./wordparts.js";
 import { renderFlashcards } from "./flashcards.js";
 import { renderQuiz } from "./quiz.js";
 import { renderAnatomy } from "./anatomy3d.js";
+import { renderAtlas } from "./atlas.js";
 import { renderProgress } from "./progress.js";
 import { markVisit } from "./store.js";
 import { wordParts, flashcards, quizBank, bodySystems } from "./data.js";
@@ -22,6 +23,7 @@ const routes = {
   flashcards: renderFlashcards,
   quiz: renderQuiz,
   anatomy: renderAnatomy,
+  atlas: renderAtlas,
   progress: renderProgress,
 };
 
@@ -53,7 +55,8 @@ function renderHome(root) {
     { view: "wordparts", emoji: "🧩", title: "Word Parts", desc: `${wordParts.length} prefixes, roots & suffixes to master.` },
     { view: "flashcards", emoji: "🗂️", title: "Flashcards", desc: `Flip through ${flashcards.length} key terms and definitions.` },
     { view: "quiz", emoji: "✅", title: "Quiz", desc: `Test yourself with ${quizBank.length}+ questions and instant scoring.` },
-    { view: "anatomy", emoji: "🫀", title: "3D Anatomy", desc: `Explore ${bodySystems.length} body systems in interactive 3D.` },
+    { view: "anatomy", emoji: "🫀", title: "3D Anatomy", desc: `Explore ${bodySystems.length} body systems & regions in interactive 3D.` },
+    { view: "atlas", emoji: "🗺️", title: "Atlas", desc: `Labeled interactive anatomy, videos & open study material.` },
     { view: "progress", emoji: "📈", title: "Progress", desc: `Track mastery, quiz scores, and your study streak.` },
   ];
 

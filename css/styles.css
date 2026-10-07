@@ -544,6 +544,19 @@ body {
   gap: 0.5rem;
 }
 
+.system-group-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin: 0.75rem 0 0.1rem;
+}
+
+.system-group-label:first-child {
+  margin-top: 0;
+}
+
 .system-btn {
   text-align: left;
   background: var(--bg-card);
@@ -820,6 +833,120 @@ body {
 .qh-date {
   color: var(--text-muted);
   font-size: 0.8rem;
+}
+
+/* ---- Atlas -------------------------------------------------------------- */
+.atlas-section {
+  margin-bottom: 2rem;
+}
+
+.atlas-section h2 {
+  font-size: 1.2rem;
+  margin: 0 0 0.75rem;
+}
+
+.atlas-model-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.atlas-fullscreen {
+  margin-left: auto;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.atlas-fullscreen:hover {
+  text-decoration: underline;
+}
+
+.atlas-viewer-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: #0b1120;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.atlas-viewer-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.atlas-note {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin: 0.6rem 0 0;
+}
+
+.atlas-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.atlas-links a {
+  color: var(--text);
+  text-decoration: none;
+  display: inline-block;
+  padding: 0.3rem 0;
+}
+
+.atlas-links a:hover {
+  color: var(--primary);
+}
+
+.atlas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.atlas-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.25rem;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.atlas-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-3px);
+}
+
+.atlas-card span {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+.atlas-credit {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+.atlas-credit a {
+  color: var(--accent);
 }
 
 /* ---- Responsive --------------------------------------------------------- */
