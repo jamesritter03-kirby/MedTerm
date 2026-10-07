@@ -380,6 +380,21 @@ export const bodySystems = [
     ],
   },
   {
+    id: "skull",
+    name: "Skull (Cranium)",
+    model: "skull",
+    // Realistic model: "Coloured skull" from The Open 3D Man, © Leiden UMC et
+    // al., licensed CC BY-SA 4.0 (https://anatomytool.org/open3dmodel).
+    file: "models/skull.glb",
+    summary: "Bones of the head that protect the brain and form the face; each bone is shown in a different color.",
+    terms: [
+      { term: "crani/o", meaning: "skull" },
+      { term: "cephal/o", meaning: "head" },
+      { term: "maxill/o", meaning: "upper jaw" },
+      { term: "mandibul/o", meaning: "lower jaw" },
+    ],
+  },
+  {
     id: "muscular",
     name: "Muscular System",
     model: "muscular",

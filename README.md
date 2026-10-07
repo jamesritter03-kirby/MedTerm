@@ -14,9 +14,9 @@ down word parts, drill flashcards, quiz yourself, and explore body systems with
 - **Flashcards** — ~96 terms across 13 body systems, with category filter, shuffle, keyboard navigation,
   and per-card **“known / still learning”** mastery marking.
 - **Quiz** — randomized multiple-choice quizzes drawn from a 240-question bank, with instant feedback and scoring.
-- **3D Anatomy** — six body systems rendered as interactive 3D models you can rotate and zoom. The skeletal
-  system uses a real university anatomy model; the rest use built-in code-generated models, and you can drop in
-  your own **realistic `.glb`/`.stl` models** for any system — see [`models/README.md`](models/README.md).
+- **3D Anatomy** — body systems rendered as interactive 3D models you can rotate and zoom. The skeletal
+  system and skull use real university anatomy models; the rest use built-in code-generated models, and you can
+  drop in your own **realistic `.glb`/`.stl` models** for any system — see [`models/README.md`](models/README.md).
 - **Progress tracking** — your flashcard mastery, quiz scores, study streak, and days studied are saved on your
   device (via `localStorage`) and shown on a **Progress** dashboard.
 
@@ -93,16 +93,17 @@ For educational study only. Not medical advice.
 
 ## � Credits & model attribution
 
-The 3D skeleton model (`models/skeleton.glb`) is **“The Open 3D Man”** from the
-[Open 3D Model project](https://anatomytool.org/open3dmodel), created by the
-anatomy departments of Leiden UMC, UMC Utrecht, Maastricht UMC, KU Leuven KULAK
-and collaborators, and based on the BodyParts3D and Z-Anatomy models. It is
-licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
-If you modify or redistribute the model, you must keep this attribution and
-share it under the same license.
+The 3D skeleton (`models/skeleton.glb`) and coloured skull (`models/skull.glb`)
+are from **“The Open 3D Man”** ([Open 3D Model project](https://anatomytool.org/open3dmodel)),
+created by the anatomy departments of Leiden UMC, UMC Utrecht, Maastricht UMC,
+KU Leuven KULAK and collaborators, and based on the BodyParts3D and Z-Anatomy
+models. They are licensed under
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). If you modify or
+redistribute these models, you must keep this attribution and share them under
+the same license.
 
 3D rendering is powered by [Three.js](https://threejs.org/) (MIT).
 
 ## 📄 License
 
-App code: [MIT](LICENSE). Bundled 3D model: CC BY-SA 4.0 (see Credits above).
+App code: [MIT](LICENSE). Bundled 3D models: CC BY-SA 4.0 (see Credits above).

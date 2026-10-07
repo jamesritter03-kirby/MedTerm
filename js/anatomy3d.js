@@ -234,6 +234,45 @@ const mat = (color, opts = {}) =>
 // per-frame callbacks into it. Each returns a THREE.Group.
 // -----------------------------------------------------------------------------
 const MODELS = {
+  // ---- Skull: cranium + jaw (procedural fallback) -------------------------
+  skull(animators) {
+    const group = new THREE.Group();
+    const bone = mat(0xf1ede0, { roughness: 0.7 });
+
+    const cranium = new THREE.Mesh(new THREE.SphereGeometry(1.2, 40, 40), bone);
+    cranium.scale.set(1, 1.1, 1.15);
+    cranium.position.y = 0.6;
+    group.add(cranium);
+
+    // Eye sockets
+    const socketMat = mat(0x2a2a2a, { roughness: 0.9 });
+    [-0.45, 0.45].forEach((x) => {
+      const socket = new THREE.Mesh(new THREE.SphereGeometry(0.3, 20, 20), socketMat);
+      socket.position.set(x, 0.45, 1.05);
+      socket.scale.set(1, 0.85, 0.6);
+      group.add(socket);
+    });
+
+    // Nasal cavity
+    const nose = new THREE.Mesh(new THREE.ConeGeometry(0.18, 0.4, 4), socketMat);
+    nose.position.set(0, 0.05, 1.25);
+    group.add(nose);
+
+    // Upper and lower jaw
+    const maxilla = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.4, 0.9), bone);
+    maxilla.position.set(0, -0.35, 0.75);
+    group.add(maxilla);
+    const mandible = new THREE.Mesh(
+      new THREE.SphereGeometry(0.7, 24, 16, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2),
+      bone
+    );
+    mandible.position.set(0, -0.75, 0.55);
+    mandible.scale.set(1, 1.1, 1.2);
+    group.add(mandible);
+
+    return group;
+  },
+
   // ---- Skeletal: skull, stacked vertebrae, rib cage -----------------------
   skeletal(animators) {
     const group = new THREE.Group();
