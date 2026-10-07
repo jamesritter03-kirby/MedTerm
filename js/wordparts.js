@@ -1,7 +1,7 @@
 // =============================================================================
 // wordparts.js — Searchable, filterable browser for prefixes, roots, suffixes.
 // =============================================================================
-import { wordParts } from "./data.js?v=1.2.0";
+import { wordParts } from "./data.js?v=1.3.0";
 
 const TYPES = ["all", "prefix", "root", "suffix"];
 const TYPE_LABELS = { all: "All", prefix: "Prefixes", root: "Roots", suffix: "Suffixes" };

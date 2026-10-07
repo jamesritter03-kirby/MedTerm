@@ -1,8 +1,8 @@
 // =============================================================================
 // quiz.js — Multiple-choice quiz with instant feedback and scoring.
 // =============================================================================
-import { quizBank } from "./data.js?v=1.2.0";
-import { recordQuiz } from "./store.js?v=1.2.0";
+import { quizBank } from "./data.js?v=1.3.0";
+import { recordQuiz } from "./store.js?v=1.3.0";
 
 const QUESTIONS_PER_QUIZ = 10;
 

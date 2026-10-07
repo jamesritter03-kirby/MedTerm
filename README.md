@@ -14,22 +14,19 @@ down word parts, drill flashcards, quiz yourself, and explore body systems with
 - **Flashcards** — ~96 terms across 13 body systems, with category filter, shuffle, keyboard navigation,
   and per-card **“known / still learning”** mastery marking.
 - **Quiz** — randomized multiple-choice quizzes drawn from a 240-question bank, with instant feedback and scoring.
-- **3D Anatomy** — body systems and individual bones/regions rendered as interactive 3D models you can rotate
-  and zoom. The skeleton, skull, vertebrae, hand, and upper/lower limbs use real university anatomy models;
-  the rest use built-in code-generated models, and you can drop in your own **`.glb`/`.stl` models** — see
-  [`models/README.md`](models/README.md).
-- **Atlas** — an embedded, fully interactive **labeled** 3D anatomy viewer plus curated open video lessons,
-  slide presentations, and a link to a large open anatomy image repository.
+- **Atlas** — a gallery of **labeled anatomy diagrams** (zoomable, public-domain plates) plus an embedded,
+  fully interactive **labeled** 3D anatomy viewer, curated open video lessons, and slide presentations.
 - **Progress tracking** — your flashcard mastery, quiz scores, study streak, and days studied are saved on your
   device (via `localStorage`) and shown on a **Progress** dashboard.
 
 ## 🛠️ Tech stack
 
 Plain HTML, CSS, and JavaScript (ES modules) — **no build step, no framework**.
-[Three.js](https://threejs.org/) is loaded from a CDN via an import map. Most 3D
-models are generated procedurally in code; the skeletal system loads a real
-(Draco-compressed) `.glb` model. Progress is stored locally in the browser, so
-the site is fully static and works as a simple set of files.
+The Atlas embeds the Open 3D Model project's interactive viewer and shows
+bundled public-domain diagram images. Progress is stored locally in the browser,
+so the site is fully static and works as a simple set of files. Asset URLs carry
+a `?v=` version query (shown as a badge in the header) so new deploys bust the
+browser cache.
 
 ## 🚀 Run it locally
 
@@ -69,7 +66,7 @@ that deploys automatically.
 
 ```
 MedTerm/
-├── index.html              # App shell + Three.js import map
+├── index.html              # App shell
 ├── css/styles.css          # All styling
 ├── js/
 │   ├── app.js              # Router & navigation
@@ -79,38 +76,36 @@ MedTerm/
 │   ├── flashcards.js       # Flashcards module (with mastery)
 │   ├── quiz.js             # Quiz module
 │   ├── progress.js         # Progress dashboard
-│   ├── atlas.js            # Atlas: embedded labeled viewer + open resources
-│   └── anatomy3d.js        # 3D anatomy viewer (Three.js)
-├── models/                 # Drop-in 3D model files (.glb/.gltf/.stl)
+│   └── atlas.js            # Atlas: diagram gallery + embedded viewer + resources
+├── images/                 # Bundled public-domain labeled diagrams
 └── .github/workflows/      # GitHub Pages deploy
 ```
 
 ## ✏️ Adding your own content
 
 All study material lives in [`js/data.js`](js/data.js). Add new entries to
-`wordParts`, `flashcards`, `bodySystems`, or `quizBank` and they appear
-automatically — the quiz even auto-generates questions from the word parts.
+`wordParts`, `flashcards`, or `quizBank` and they appear automatically — the quiz
+even auto-generates questions from the word parts. Labeled diagrams are listed in
+[`js/atlas.js`](js/atlas.js) (`diagrams` array) with images in `images/`.
 
 ## ⚕️ Disclaimer
 
 For educational study only. Not medical advice.
 
-## � Credits & model attribution
+## 🙏 Credits & attribution
 
-The bundled 3D models — skeleton, coloured skull, typical vertebrae, hand, and
-upper/lower limbs (`models/*.glb`) — and the labeled models, videos, and
-presentations shown in the **Atlas** tab are from **“The Open 3D Man”**
-([Open 3D Model project](https://anatomytool.org/open3dmodel)), created by the
-anatomy departments of Leiden UMC, UMC Utrecht, Maastricht UMC, KU Leuven KULAK
-and collaborators, and based on the BodyParts3D and Z-Anatomy models. They are
-licensed under
-[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). If you modify or
-redistribute these models, you must keep this attribution and share them under
-the same license. The embedded Atlas viewer is the open3dviewer by Daniel Jansma
-(LUMC), licensed GPL-3.0.
+**Labeled diagrams** in the Atlas are classic public-domain plates from *Gray's
+Anatomy* (1918), retrieved via [Wikimedia Commons](https://commons.wikimedia.org/)
+and bundled in `images/`.
 
-3D rendering is powered by [Three.js](https://threejs.org/) (MIT).
+The **embedded interactive 3D viewer**, videos, and presentations in the Atlas
+are from **“The Open 3D Man”** ([Open 3D Model project](https://anatomytool.org/open3dmodel)),
+created by the anatomy departments of Leiden UMC, UMC Utrecht, Maastricht UMC,
+KU Leuven KULAK and collaborators, and based on the BodyParts3D and Z-Anatomy
+models, licensed [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+The embedded viewer is the open3dviewer by Daniel Jansma (LUMC), licensed GPL-3.0.
 
 ## 📄 License
 
-App code: [MIT](LICENSE). Bundled 3D models: CC BY-SA 4.0 (see Credits above).
+App code: [MIT](LICENSE). Bundled diagrams: public domain. Atlas 3D viewer/videos
+(linked/embedded): CC BY-SA 4.0 (see Credits above).

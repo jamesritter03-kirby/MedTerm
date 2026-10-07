@@ -8,36 +8,24 @@
       content="Interactive study web app for college medical terminology — word parts, flashcards, quizzes, and 3D anatomy."
     />
     <title>MedTerm · Medical Terminology Study</title>
-    <link rel="stylesheet" href="css/styles.css?v=1.2.0" />
+    <link rel="stylesheet" href="css/styles.css?v=1.3.0" />
     <link
       rel="icon"
       href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>"
     />
-
-    <!-- Three.js loaded as ES modules from a CDN. No build step required, so
-         the site deploys to GitHub Pages as-is. -->
-    <script type="importmap">
-      {
-        "imports": {
-          "three": "https://unpkg.com/three@0.164.0/build/three.module.js",
-          "three/addons/": "https://unpkg.com/three@0.164.0/examples/jsm/"
-        }
-      }
-    </script>
   </head>
   <body>
     <header class="app-header">
       <div class="brand">
         <span class="brand-icon">🩺</span>
         <span class="brand-name">MedTerm</span>
-        <span class="brand-version">v1.2.0</span>
+        <span class="brand-version">v1.3.0</span>
       </div>
       <nav class="app-nav" id="nav">
         <button class="nav-btn" data-view="home">Home</button>
         <button class="nav-btn" data-view="wordparts">Word Parts</button>
         <button class="nav-btn" data-view="flashcards">Flashcards</button>
         <button class="nav-btn" data-view="quiz">Quiz</button>
-        <button class="nav-btn" data-view="anatomy">3D Anatomy</button>
         <button class="nav-btn" data-view="atlas">Atlas</button>
         <button class="nav-btn" data-view="progress">Progress</button>
       </nav>
@@ -53,6 +41,6 @@
       </p>
     </footer>
 
-    <script type="module" src="js/app.js?v=1.2.0"></script>
+    <script type="module" src="js/app.js?v=1.3.0"></script>
   </body>
 </html>

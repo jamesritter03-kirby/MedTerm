@@ -1,14 +1,13 @@
 // =============================================================================
 // app.js — Hash-based router and navigation for the single-page study app.
 // =============================================================================
-import { renderWordParts } from "./wordparts.js?v=1.2.0";
-import { renderFlashcards } from "./flashcards.js?v=1.2.0";
-import { renderQuiz } from "./quiz.js?v=1.2.0";
-import { renderAnatomy } from "./anatomy3d.js?v=1.2.0";
-import { renderAtlas } from "./atlas.js?v=1.2.0";
-import { renderProgress } from "./progress.js?v=1.2.0";
-import { markVisit } from "./store.js?v=1.2.0";
-import { wordParts, flashcards, quizBank, bodySystems } from "./data.js?v=1.2.0";
+import { renderWordParts } from "./wordparts.js?v=1.3.0";
+import { renderFlashcards } from "./flashcards.js?v=1.3.0";
+import { renderQuiz } from "./quiz.js?v=1.3.0";
+import { renderAtlas } from "./atlas.js?v=1.3.0";
+import { renderProgress } from "./progress.js?v=1.3.0";
+import { markVisit } from "./store.js?v=1.3.0";
+import { wordParts, flashcards, quizBank } from "./data.js?v=1.3.0";
 
 const appEl = document.getElementById("app");
 const navEl = document.getElementById("nav");
@@ -22,7 +21,6 @@ const routes = {
   wordparts: renderWordParts,
   flashcards: renderFlashcards,
   quiz: renderQuiz,
-  anatomy: renderAnatomy,
   atlas: renderAtlas,
   progress: renderProgress,
 };
@@ -55,8 +53,7 @@ function renderHome(root) {
     { view: "wordparts", emoji: "🧩", title: "Word Parts", desc: `${wordParts.length} prefixes, roots & suffixes to master.` },
     { view: "flashcards", emoji: "🗂️", title: "Flashcards", desc: `Flip through ${flashcards.length} key terms and definitions.` },
     { view: "quiz", emoji: "✅", title: "Quiz", desc: `Test yourself with ${quizBank.length}+ questions and instant scoring.` },
-    { view: "anatomy", emoji: "🫀", title: "3D Anatomy", desc: `Explore ${bodySystems.length} body systems & regions in interactive 3D.` },
-    { view: "atlas", emoji: "🗺️", title: "Atlas", desc: `Labeled interactive anatomy, videos & open study material.` },
+    { view: "atlas", emoji: "🧮", title: "Atlas", desc: `Labeled diagrams, interactive 3D anatomy, videos & more.` },
     { view: "progress", emoji: "📈", title: "Progress", desc: `Track mastery, quiz scores, and your study streak.` },
   ];
 

@@ -2,8 +2,8 @@
 // progress.js — Study-progress dashboard.
 // Shows flashcard mastery, quiz history, and study streak from the store.
 // =============================================================================
-import { getStats, resetProgress } from "./store.js?v=1.2.0";
-import { flashcards, quizBank } from "./data.js?v=1.2.0";
+import { getStats, resetProgress } from "./store.js?v=1.3.0";
+import { flashcards, quizBank } from "./data.js?v=1.3.0";
 
 export function renderProgress(root) {
   draw(root);
