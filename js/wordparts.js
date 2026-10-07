@@ -4,6 +4,7 @@
 import { wordParts } from "./data.js";
 
 const TYPES = ["all", "prefix", "root", "suffix"];
+const TYPE_LABELS = { all: "All", prefix: "Prefixes", root: "Roots", suffix: "Suffixes" };
 
 export function renderWordParts(root) {
   const state = { query: "", type: "all" };
@@ -20,7 +21,7 @@ export function renderWordParts(root) {
         ${TYPES.map(
           (t) =>
             `<button class="pill ${t === "all" ? "active" : ""}" data-type="${t}">${
-              t === "all" ? "All" : t.charAt(0).toUpperCase() + t.slice(1) + "es"
+              TYPE_LABELS[t]
             }</button>`
         ).join("")}
       </div>
