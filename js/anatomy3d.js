@@ -5,6 +5,7 @@
 // =============================================================================
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { bodySystems } from "./data.js";
 
 export function renderAnatomy(root) {
@@ -29,6 +30,7 @@ export function renderAnatomy(root) {
       </div>
       <div class="viewer-panel">
         <div class="viewer-canvas-wrap" id="canvasWrap">
+          <div class="viewer-loading" id="viewerLoading" hidden>Loading model…</div>
           <div class="viewer-hint">Drag to rotate · scroll to zoom</div>
         </div>
         <div class="viewer-info" id="viewerInfo"></div>
@@ -53,7 +55,7 @@ export function renderAnatomy(root) {
           .join("")}
       </div>
     `;
-    viewer.showModel(system.model);
+    viewer.showSystem(system);
   }
 
   root.querySelector("#systemList").addEventListener("click", (e) => {
@@ -76,6 +78,9 @@ class Viewer {
     this.clock = new THREE.Clock();
     this.modelGroup = null;
     this.animators = [];
+    this.loader = new GLTFLoader();
+    this.loadToken = 0;
+    this.loadingEl = container.querySelector("#viewerLoading");
 
     this.scene = new THREE.Scene();
 
@@ -115,15 +120,54 @@ class Viewer {
     this.scene.add(rim);
   }
 
-  showModel(name) {
-    if (this.modelGroup) {
-      this.scene.remove(this.modelGroup);
-      disposeGroup(this.modelGroup);
-    }
+  // Show a body system. If it declares a `file` (a .glb/.gltf model) we load
+  // that for a realistic look; otherwise we build the procedural fallback.
+  // A load token guards against the user switching systems mid-download.
+  showSystem(system) {
+    this._clearModel();
     this.animators = [];
+    const token = ++this.loadToken;
+
+    if (system.file) {
+      this._setLoading(true);
+      this.loader.load(
+        system.file,
+        (gltf) => {
+          if (token !== this.loadToken) return;
+          this._setLoading(false);
+          frameObject(gltf.scene);
+          this.modelGroup = gltf.scene;
+          this.scene.add(this.modelGroup);
+        },
+        undefined,
+        () => {
+          // Missing or unreadable file: quietly fall back to the built-in model.
+          if (token !== this.loadToken) return;
+          this._setLoading(false);
+          this._buildProcedural(system.model);
+        }
+      );
+    } else {
+      this._buildProcedural(system.model);
+    }
+  }
+
+  _buildProcedural(name) {
     const builder = MODELS[name] || MODELS.skeletal;
     this.modelGroup = builder(this.animators);
     this.scene.add(this.modelGroup);
+  }
+
+  _clearModel() {
+    if (this.modelGroup) {
+      this.scene.remove(this.modelGroup);
+      disposeGroup(this.modelGroup);
+      this.modelGroup = null;
+    }
+  }
+
+  _setLoading(on) {
+    if (this.loadingEl) this.loadingEl.hidden = !on;
   }
 
   _animate() {
@@ -413,13 +457,31 @@ function heartbeat(t) {
   return lub + dub;
 }
 
-// Free geometry + material memory for every mesh in a group.
+// Center a loaded model at the origin and scale it to a consistent size so any
+// downloaded .glb (whatever its units) frames nicely in the viewer.
+function frameObject(obj, targetSize = 5) {
+  const box = new THREE.Box3().setFromObject(obj);
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+  const maxDim = Math.max(size.x, size.y, size.z) || 1;
+  const scale = targetSize / maxDim;
+  obj.scale.setScalar(scale);
+  obj.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
+}
+
+// Free geometry, material, and texture memory for every mesh in a group.
 function disposeGroup(group) {
   group.traverse((obj) => {
     if (obj.geometry) obj.geometry.dispose();
     if (obj.material) {
       const materials = Array.isArray(obj.material) ? obj.material : [obj.material];
-      materials.forEach((m) => m.dispose());
+      materials.forEach((m) => {
+        for (const key in m) {
+          const value = m[key];
+          if (value && value.isTexture) value.dispose();
+        }
+        m.dispose();
+      });
     }
   });
 }

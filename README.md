@@ -15,6 +15,8 @@ down word parts, drill flashcards, quiz yourself, and explore body systems with
 - **Quiz** — randomized multiple-choice quizzes with instant feedback and scoring.
 - **3D Anatomy** — six body systems (skeletal, muscular, cardiovascular, respiratory,
   nervous, digestive) rendered as interactive, animated 3D models you can rotate and zoom.
+  Built-in models are generated in code (no downloads, works offline), and you can drop in
+  **realistic `.glb` models** for any system — see [`models/README.md`](models/README.md).
 
 ## 🛠️ Tech stack
 

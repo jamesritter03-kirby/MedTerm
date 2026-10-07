@@ -83,12 +83,16 @@ export const flashcards = [
 ];
 
 // ----- Body systems ----------------------------------------------------------
-// `model` maps to a builder function in anatomy3d.js.
+// `model` maps to a built-in procedural builder in anatomy3d.js (the fallback).
+// `file` is an optional path to a realistic .glb/.gltf model (e.g.
+// "models/heart.glb"). When set and the file loads, it replaces the procedural
+// shape; if it's null or fails to load, the procedural model is shown instead.
 export const bodySystems = [
   {
     id: "skeletal",
     name: "Skeletal System",
     model: "skeletal",
+    file: null,
     summary: "Provides structure, protects organs, stores minerals, and produces blood cells.",
     terms: [
       { term: "oste/o", meaning: "bone" },
@@ -101,6 +105,7 @@ export const bodySystems = [
     id: "muscular",
     name: "Muscular System",
     model: "muscular",
+    file: null,
     summary: "Enables movement, maintains posture, and generates body heat.",
     terms: [
       { term: "my/o", meaning: "muscle" },
@@ -113,6 +118,7 @@ export const bodySystems = [
     id: "cardiovascular",
     name: "Cardiovascular System",
     model: "cardiovascular",
+    file: null,
     summary: "Pumps and circulates blood, delivering oxygen and nutrients throughout the body.",
     terms: [
       { term: "cardi/o", meaning: "heart" },
@@ -125,6 +131,7 @@ export const bodySystems = [
     id: "respiratory",
     name: "Respiratory System",
     model: "respiratory",
+    file: null,
     summary: "Exchanges oxygen and carbon dioxide between the blood and the environment.",
     terms: [
       { term: "pulmon/o", meaning: "lung" },
@@ -137,6 +144,7 @@ export const bodySystems = [
     id: "nervous",
     name: "Nervous System",
     model: "nervous",
+    file: null,
     summary: "Controls and coordinates body functions through electrical and chemical signals.",
     terms: [
       { term: "neur/o", meaning: "nerve" },
@@ -149,6 +157,7 @@ export const bodySystems = [
     id: "digestive",
     name: "Digestive System",
     model: "digestive",
+    file: null,
     summary: "Breaks down food, absorbs nutrients, and eliminates waste.",
     terms: [
       { term: "gastr/o", meaning: "stomach" },

@@ -604,6 +604,22 @@ body {
   border-radius: 8px;
 }
 
+.viewer-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  background: rgba(11, 17, 32, 0.55);
+  z-index: 2;
+}
+
+.viewer-loading[hidden] {
+  display: none;
+}
+
 .viewer-info {
   padding: 1.25rem 1.5rem 1.5rem;
 }
