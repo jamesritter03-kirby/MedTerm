@@ -2,8 +2,8 @@
 // flashcards.js — Flip-card study mode with category filter, shuffle,
 // keyboard navigation, and persistent "known / still learning" mastery.
 // =============================================================================
-import { flashcards } from "./data.js";
-import { setFlashcardStatus, getFlashcardStatus } from "./store.js";
+import { flashcards } from "./data.js?v=1.2.0";
+import { setFlashcardStatus, getFlashcardStatus } from "./store.js?v=1.2.0";
 
 export function renderFlashcards(root) {
   const categories = ["All", ...[...new Set(flashcards.map((c) => c.category))].sort()];

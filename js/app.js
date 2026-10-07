@@ -1,14 +1,14 @@
 // =============================================================================
 // app.js — Hash-based router and navigation for the single-page study app.
 // =============================================================================
-import { renderWordParts } from "./wordparts.js";
-import { renderFlashcards } from "./flashcards.js";
-import { renderQuiz } from "./quiz.js";
-import { renderAnatomy } from "./anatomy3d.js";
-import { renderAtlas } from "./atlas.js";
-import { renderProgress } from "./progress.js";
-import { markVisit } from "./store.js";
-import { wordParts, flashcards, quizBank, bodySystems } from "./data.js";
+import { renderWordParts } from "./wordparts.js?v=1.2.0";
+import { renderFlashcards } from "./flashcards.js?v=1.2.0";
+import { renderQuiz } from "./quiz.js?v=1.2.0";
+import { renderAnatomy } from "./anatomy3d.js?v=1.2.0";
+import { renderAtlas } from "./atlas.js?v=1.2.0";
+import { renderProgress } from "./progress.js?v=1.2.0";
+import { markVisit } from "./store.js?v=1.2.0";
+import { wordParts, flashcards, quizBank, bodySystems } from "./data.js?v=1.2.0";
 
 const appEl = document.getElementById("app");
 const navEl = document.getElementById("nav");

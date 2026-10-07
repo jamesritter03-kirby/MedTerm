@@ -8,7 +8,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { STLLoader } from "three/addons/loaders/STLLoader.js";
-import { bodySystems } from "./data.js";
+import { bodySystems } from "./data.js?v=1.2.0";
 
 // Build the system list grouped by each entry's `group` label, in first-seen order.
 function groupedSystemListHTML(activeId) {
