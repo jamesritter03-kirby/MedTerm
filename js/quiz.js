@@ -2,6 +2,7 @@
 // quiz.js — Multiple-choice quiz with instant feedback and scoring.
 // =============================================================================
 import { quizBank } from "./data.js";
+import { recordQuiz } from "./store.js";
 
 const QUESTIONS_PER_QUIZ = 10;
 
@@ -87,12 +88,15 @@ export function renderQuiz(root) {
       pct >= 50 ? "Good start — keep reviewing." :
       "Keep studying, you'll get there! 📚";
 
+    recordQuiz(state.score, total);
+
     root.innerHTML = `
       <h1 class="view-title">Quiz Results</h1>
       <div class="quiz-wrap">
         <div class="quiz-result">
           <div class="score">${state.score} / ${total}</div>
           <p style="font-size:1.2rem;margin:.5rem 0 1.5rem;">${pct}% — ${message}</p>
+          <p class="quiz-saved">Score saved to your progress.</p>
           <button class="btn primary" id="retryBtn">Try another quiz</button>
         </div>
       </div>

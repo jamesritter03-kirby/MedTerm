@@ -6,6 +6,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { STLLoader } from "three/addons/loaders/STLLoader.js";
 import { bodySystems } from "./data.js";
 
@@ -80,6 +81,10 @@ class Viewer {
     this.modelGroup = null;
     this.animators = [];
     this.loader = new GLTFLoader();
+    // Many openly-licensed GLB models are Draco-compressed; wire up the decoder.
+    const draco = new DRACOLoader();
+    draco.setDecoderPath("https://unpkg.com/three@0.164.0/examples/jsm/libs/draco/");
+    this.loader.setDRACOLoader(draco);
     this.stlLoader = new STLLoader();
     this.loadToken = 0;
     this.loadingEl = container.querySelector("#viewerLoading");
@@ -144,9 +149,10 @@ class Viewer {
       this.modelGroup = object;
       this.scene.add(object);
     };
-    const onError = () => {
+    const onError = (err) => {
       // Missing or unreadable file: quietly fall back to the built-in model.
       if (stale()) return;
+      console.warn("[anatomy3d] model load failed, using procedural fallback:", system.file, err);
       this._setLoading(false);
       this._buildProcedural(system.model);
     };

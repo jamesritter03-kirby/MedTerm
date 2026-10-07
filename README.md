@@ -10,20 +10,23 @@ down word parts, drill flashcards, quiz yourself, and explore body systems with
 
 ## ✨ Features
 
-- **Word Parts** — searchable, filterable list of prefixes, roots, and suffixes with examples.
-- **Flashcards** — flip-card study mode with shuffle and keyboard navigation.
-- **Quiz** — randomized multiple-choice quizzes with instant feedback and scoring.
-- **3D Anatomy** — six body systems (skeletal, muscular, cardiovascular, respiratory,
-  nervous, digestive) rendered as interactive, animated 3D models you can rotate and zoom.
-  Built-in models are generated in code (no downloads, works offline), and you can drop in
-  **realistic `.glb` models** for any system — see [`models/README.md`](models/README.md).
+- **Word Parts** — a searchable, filterable glossary of ~195 prefixes, roots, and suffixes with examples.
+- **Flashcards** — ~96 terms across 13 body systems, with category filter, shuffle, keyboard navigation,
+  and per-card **“known / still learning”** mastery marking.
+- **Quiz** — randomized multiple-choice quizzes drawn from a 240-question bank, with instant feedback and scoring.
+- **3D Anatomy** — six body systems rendered as interactive 3D models you can rotate and zoom. The skeletal
+  system uses a real university anatomy model; the rest use built-in code-generated models, and you can drop in
+  your own **realistic `.glb`/`.stl` models** for any system — see [`models/README.md`](models/README.md).
+- **Progress tracking** — your flashcard mastery, quiz scores, study streak, and days studied are saved on your
+  device (via `localStorage`) and shown on a **Progress** dashboard.
 
 ## 🛠️ Tech stack
 
 Plain HTML, CSS, and JavaScript (ES modules) — **no build step, no framework**.
-[Three.js](https://threejs.org/) is loaded from a CDN via an import map, and every
-3D model is generated procedurally in code, so the site is fully static and works
-offline once loaded.
+[Three.js](https://threejs.org/) is loaded from a CDN via an import map. Most 3D
+models are generated procedurally in code; the skeletal system loads a real
+(Draco-compressed) `.glb` model. Progress is stored locally in the browser, so
+the site is fully static and works as a simple set of files.
 
 ## 🚀 Run it locally
 
@@ -68,10 +71,13 @@ MedTerm/
 ├── js/
 │   ├── app.js              # Router & navigation
 │   ├── data.js             # All study content (edit this to add terms)
+│   ├── store.js            # localStorage-backed progress tracking
 │   ├── wordparts.js        # Word parts browser
-│   ├── flashcards.js       # Flashcards module
+│   ├── flashcards.js       # Flashcards module (with mastery)
 │   ├── quiz.js             # Quiz module
+│   ├── progress.js         # Progress dashboard
 │   └── anatomy3d.js        # 3D anatomy viewer (Three.js)
+├── models/                 # Drop-in 3D model files (.glb/.gltf/.stl)
 └── .github/workflows/      # GitHub Pages deploy
 ```
 
@@ -85,6 +91,18 @@ automatically — the quiz even auto-generates questions from the word parts.
 
 For educational study only. Not medical advice.
 
+## � Credits & model attribution
+
+The 3D skeleton model (`models/skeleton.glb`) is **“The Open 3D Man”** from the
+[Open 3D Model project](https://anatomytool.org/open3dmodel), created by the
+anatomy departments of Leiden UMC, UMC Utrecht, Maastricht UMC, KU Leuven KULAK
+and collaborators, and based on the BodyParts3D and Z-Anatomy models. It is
+licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+If you modify or redistribute the model, you must keep this attribution and
+share it under the same license.
+
+3D rendering is powered by [Three.js](https://threejs.org/) (MIT).
+
 ## 📄 License
 
-[MIT](LICENSE)
+App code: [MIT](LICENSE). Bundled 3D model: CC BY-SA 4.0 (see Credits above).

@@ -5,6 +5,8 @@ import { renderWordParts } from "./wordparts.js";
 import { renderFlashcards } from "./flashcards.js";
 import { renderQuiz } from "./quiz.js";
 import { renderAnatomy } from "./anatomy3d.js";
+import { renderProgress } from "./progress.js";
+import { markVisit } from "./store.js";
 import { wordParts, flashcards, quizBank, bodySystems } from "./data.js";
 
 const appEl = document.getElementById("app");
@@ -20,6 +22,7 @@ const routes = {
   flashcards: renderFlashcards,
   quiz: renderQuiz,
   anatomy: renderAnatomy,
+  progress: renderProgress,
 };
 
 function navigate(view) {
@@ -51,6 +54,7 @@ function renderHome(root) {
     { view: "flashcards", emoji: "🗂️", title: "Flashcards", desc: `Flip through ${flashcards.length} key terms and definitions.` },
     { view: "quiz", emoji: "✅", title: "Quiz", desc: `Test yourself with ${quizBank.length}+ questions and instant scoring.` },
     { view: "anatomy", emoji: "🫀", title: "3D Anatomy", desc: `Explore ${bodySystems.length} body systems in interactive 3D.` },
+    { view: "progress", emoji: "📈", title: "Progress", desc: `Track mastery, quiz scores, and your study streak.` },
   ];
 
   root.innerHTML = `
@@ -91,4 +95,5 @@ navToggle.addEventListener("click", () => navEl.classList.toggle("open"));
 
 window.addEventListener("hashchange", () => navigate(location.hash.slice(1) || "home"));
 
+markVisit();
 navigate(location.hash.slice(1) || "home");
